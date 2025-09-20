@@ -1,0 +1,150 @@
+\documentclass[12pt,letterpaper, onecolumn]{exam}
+\usepackage{amsfonts, amsmath, amssymb}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{physics}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{relsize}
+\usepackage{tikz}
+\usepackage[lmargin=71pt, tmargin=1.2in]{geometry}  %For centering solution box
+\usepackage{clrscode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{patterns}
+\graphicspath{ {./images/} }
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=1pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+%\lstset{style=mystyle}
+\lhead{COP 6526 Homework 2 Solution\\}
+\rhead{Arman Sayan\\}
+% \chead{\hline} % Un-comment to draw line below header
+\thispagestyle{empty}   %For removing header/footer from page 1
+
+\begin{document}
+
+\begingroup  
+    \centering
+    \LARGE COP 6526\\
+    \LARGE Homework 2 Solution\\[0.5em]
+    \large \today\\[0.5em]
+    \large Arman Sayan\par
+\endgroup
+\rule{\textwidth}{0.4pt}
+\bracketedpoints   %Self-explanatory
+\printanswers
+\renewcommand{\solutiontitle}{\noindent\textbf{Ans:}\enspace}   %Replace "Ans:" with starting keyword in solution box
+\qformat{\large \textbf{\thequestion \quad \thequestiontitle \quad [\thepoints] \hfill}}
+\renewcommand{\thepartno}{\arabic{partno}}
+\renewcommand{\partlabel}{\thepartno.}
+
+\begin{questions}
+    \titledquestion{Question 1: Parallel k-Means Clustering}[50]
+
+    Dataset: MNIST digits (subset 10,000 images) (or sklearn.datasets.load\_digits)
+
+    \begin{parts}
+        \part[12] Implement k-means clustering (sequential code). k=10.
+
+        \begin{solution}
+
+        \end{solution}
+
+        \part[12] Parallelize both  E-step (assignment) and M-step (update) using Python Multiprocessing. 
+        You may split dataset among processes. During the E-step (assignment), each process assigns points to nearest centers. 
+        During the M-step (update),  each process handles a cluster by computing the mean of its assigned points.
+
+        \begin{solution}
+
+        \end{solution}
+
+        \part[14] Parallelize both  E-step (assignment) and M-step (update) using mpi4py.
+
+        \begin{solution}
+
+        \end{solution}
+
+        \part[12] Answer the following questions:
+
+        \begin{enumerate}[label=(\alph*)]
+            \item From your experiments, does increasing the number of processes in multiprocessing make the program run faster?
+            \item Does increasing the number of processes in mpi4py make the program run faster?
+            \item Does changing the number of processes have any effect on the accuracy of the K-means clustering results?"
+        \end{enumerate}
+
+        \begin{solution}
+
+        \end{solution}
+
+    \end{parts}
+
+    \pagebreak
+
+    \titledquestion{Question 2}[50]
+
+    Please parallelize the following nonlinear regression program using multiprocessing and MPI in python. 
+    According to the number of CPU cores in your computer (or one computer on stokes), you may use the same number of processes.
+
+    Here are the nonlinear regression program and data.
+
+    Hints:
+
+    \begin{enumerate}[label=(\theenumi)]
+        \item To parallelize the training, you can distribute the data to different processes at the beginning. 
+        Then under every epoch, every process calculates and summarizes gradients, and then sends them to the main process. 
+        Then, in the current epoch, the main process collects gradients from all processes, updates the model, and then propagates
+         the model to every process. Here we do not consider mini-batch. Such kind of distributed/parallel machine learning is 
+         "synchronized", which produces the same result as sequential execution.
+        \item Please use Numpy for efficiency.
+    \end{enumerate}
+
+    \begin{parts}
+        \part[20] Multiprocessing in Python
+
+        \begin{solution}
+
+        \end{solution}
+
+        \part[20] MPI in Python
+
+        \begin{solution}
+
+        \end{solution}
+
+        \part[10] Please compare the entire runtime of the three different implementations 
+        (sequential, multiprocessing, MPI) in a report.
+
+        \begin{solution}
+
+        \end{solution}
+
+    \end{parts}
+
+\end{questions}
+
+\end{document}
