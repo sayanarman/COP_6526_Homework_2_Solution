@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1758511441.3323 "/Users/armansayan/COP_6526_Homework_2_Solution/COP_6526_Homework_2_Solution_Arman_Sayan.tex" "COP_6526_Homework_2_Solution_Arman_Sayan.pdf" "COP_6526_Homework_2_Solution_Arman_Sayan" 1758511442.96359 0
-  "/Users/armansayan/COP_6526_Homework_2_Solution/COP_6526_Homework_2_Solution_Arman_Sayan.tex" 1758511441.00357 6098 0a811377579c63db3eaa2112cc68dce2 ""
+["pdflatex"] 1758565371.88799 "/Users/armansayan/COP_6526_Homework_2_Solution/COP_6526_Homework_2_Solution_Arman_Sayan.tex" "COP_6526_Homework_2_Solution_Arman_Sayan.pdf" "COP_6526_Homework_2_Solution_Arman_Sayan" 1758565373.22671 0
+  "/Users/armansayan/COP_6526_Homework_2_Solution/COP_6526_Homework_2_Solution_Arman_Sayan.tex" 1758565371.55206 6382 5aaf61ef55b608402fe9bc724d7470bc ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
@@ -126,8 +126,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1737611529 5466570 e8651e7fa7bb054fee9a07d3f37faf28 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1737611332 3352295 c51a7402c89a6e00c346fd25b06193d3 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "COP_6526_Homework_2_Solution_Arman_Sayan.aux" 1758511442.78293 1321 52b6fa23585703fdc8585e98338923b9 "pdflatex"
-  "COP_6526_Homework_2_Solution_Arman_Sayan.tex" 1758511441.00357 6098 0a811377579c63db3eaa2112cc68dce2 ""
+  "COP_6526_Homework_2_Solution_Arman_Sayan.aux" 1758565373.10771 1321 52b6fa23585703fdc8585e98338923b9 "pdflatex"
+  "COP_6526_Homework_2_Solution_Arman_Sayan.tex" 1758565371.55206 6382 5aaf61ef55b608402fe9bc724d7470bc ""
   (generated)
   "COP_6526_Homework_2_Solution_Arman_Sayan.aux"
   "COP_6526_Homework_2_Solution_Arman_Sayan.log"
