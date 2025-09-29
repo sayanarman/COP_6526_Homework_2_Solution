@@ -6,12 +6,12 @@
 
 # How to run:
 # Please type the following command to run the script:
-# source .venv/bin/activate (if using a virtual environment)
+# source ./venv/bin/activate (if using a virtual environment)
 # pip install numpy (if not already installed)
 # pip install sklearn (if not already installed)
 # pip install time (if not already installed)
 # pip install multiprocessing (if not already installed)
-# python3 cop_6526_hw2_q1_multiprocessing_arman_sayan.py
+# python3 cop_6526_hw2_q1_multiprocessing_arman_sayan.py -n <num_processes> (<num_processes> should be <= number of CPU cores)
 
 # Question 1.2 : Parallelized Implementation of k-Means Clustering using Python Multiprocessing
 
@@ -22,6 +22,7 @@ import time
 from multiprocessing import Pool, cpu_count, current_process
 from sklearn.metrics import accuracy_score
 from scipy.optimize import linear_sum_assignment
+import argparse
 
 def clustering_accuracy(y_true, y_pred, n_clusters=10, n_classes=10):
     """
@@ -101,7 +102,7 @@ def ComputePartialSums(args):
     return sums, counts
 
 
-def kMeans_Multiprocessing(X, k=10, max_iters=100):
+def kMeans_Multiprocessing(X, num_processes, k=10, max_iters=100):
     np.random.seed(42)
     n_samples, n_features = X.shape
 
@@ -109,7 +110,7 @@ def kMeans_Multiprocessing(X, k=10, max_iters=100):
     random_indices = np.random.choice(n_samples, k, replace=False)
     centroids = X[random_indices]
 
-    num_workers = cpu_count()
+    num_workers = num_processes
     pool = Pool(processes=num_workers)
 
     print("\nStarting parallelized k-Means clustering with multiprocessing...")
@@ -156,6 +157,19 @@ def kMeans_Multiprocessing(X, k=10, max_iters=100):
     return labels, centroids
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-n", "--num-processes",
+        type=int,
+        default= cpu_count(),
+        help="Number of processes to run (default: cpu_count())"
+    )
+    args = parser.parse_args()
+
+    num_processes = args.num_processes
+    print(f"Using {num_processes} processes for parallel computation.")
+
+
     # Load MNIST digits via fetch_openml
     print("Loading MNIST dataset...")
     mnist = fetch_openml('mnist_784', version=1, as_frame=False)
@@ -179,7 +193,7 @@ if __name__ == "__main__":
     # Select number of clusters
     k = 10
 
-    labels, centroids = kMeans_Multiprocessing(X, k)
+    labels, centroids = kMeans_Multiprocessing(X, num_processes, k)
 
     print("\nFinal cluster distribution:", np.unique(labels, return_counts=True))
 
