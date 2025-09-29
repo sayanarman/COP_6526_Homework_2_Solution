@@ -1,5 +1,5 @@
 # Created: September 21, 2025
-# Last Edit Date: September 21, 2025
+# Last Edit Date: September 29, 2025
 
 # This solution is created by Arman Sayan
 # as part of the Homework 2 for the COP6526 course.
@@ -11,7 +11,7 @@
 # pip install sklearn (if not already installed)
 # pip install time (if not already installed)
 # pip install multiprocessing (if not already installed)
-# python3 cop6526_hw2_q1_multiprocessing_arman_sayan.py
+# python3 cop_6526_hw2_q1_multiprocessing_arman_sayan.py
 
 # Question 1.2 : Parallelized Implementation of k-Means Clustering using Python Multiprocessing
 
@@ -20,6 +20,51 @@ from sklearn.datasets import fetch_openml
 from sklearn.preprocessing import StandardScaler
 import time
 from multiprocessing import Pool, cpu_count, current_process
+from sklearn.metrics import accuracy_score
+from scipy.optimize import linear_sum_assignment
+
+def clustering_accuracy(y_true, y_pred, n_clusters=10, n_classes=10):
+    """
+    Compute clustering accuracy by finding the best cluster-to-label mapping
+    using the Hungarian algorithm.
+
+    Parameters
+    ----------
+    y_true : array-like of shape (n_samples,)
+        Ground-truth labels.
+    y_pred : array-like of shape (n_samples,)
+        Cluster assignments from k-means.
+    n_clusters : int, optional (default=10)
+        Number of clusters used in k-means.
+    n_classes : int, optional (default=10)
+        Number of unique ground-truth classes.
+
+    Returns
+    -------
+    acc : float
+        Clustering accuracy in [0, 1].
+    mapping : dict
+        Dictionary mapping cluster_id -> assigned class label.
+    """
+
+    # Build confusion matrix (clusters × classes)
+    conf_matrix = np.zeros((n_clusters, n_classes), dtype=int)
+    for cluster_id, true_label in zip(y_pred, y_true):
+        conf_matrix[cluster_id, true_label] += 1
+
+    # Hungarian algorithm (maximize matching)
+    row_ind, col_ind = linear_sum_assignment(-conf_matrix)
+
+    # Map clusters to labels
+    cluster_to_label = dict(zip(row_ind, col_ind))
+
+    # Translate predictions
+    mapped_preds = np.array([cluster_to_label[cluster] for cluster in y_pred])
+
+    # Accuracy
+    acc = accuracy_score(y_true, mapped_preds)
+
+    return acc, cluster_to_label
 
 # Helper functions for parallel k-Means
 def EuclideanDistance(a, b):
@@ -137,3 +182,7 @@ if __name__ == "__main__":
     labels, centroids = kMeans_Multiprocessing(X, k)
 
     print("\nFinal cluster distribution:", np.unique(labels, return_counts=True))
+
+    # Evaluate clustering accuracy
+    acc, _ = clustering_accuracy(y, labels, n_clusters=10, n_classes=10)
+    print(f"Clustering accuracy: {acc:.4f}")
