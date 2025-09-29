@@ -125,6 +125,71 @@
 
         \begin{solution}
 
+            The runtime comparison of the three different implementations of k-Means clustering is summarized in Table \ref{tab:runtime_accuracy_kmeans}.
+            The experiments were conducted on a local machine with 6 physical CPU cores. Since multiprocessing does use logical CPU cores, which is 12
+            in this case, we tested up to 12 processes for the multiprocessing implementation.
+            The accuracy of the clustering results was evaluated by comparing the predicted labels with the true labels of the dataset.
+
+            \begin{table}[H]
+                \centering
+                \begin{tabular}{|c|c|c|c|}
+                    \hline
+                    \textbf{Method} & \textbf{\# Processes} & \textbf{Runtime (s) ↓} & \textbf{Accuracy (\%) ↑} \\
+                    \hline
+                    \multirow{1}{*}{\texttt{sequential}} 
+                        & 1  & \textbf{22.42} & 46.80 \\
+                    \hline
+                    \multirow{6}{*}{\texttt{multiprocessing}}
+                        & 1  & 36.20 & 46.80 \\
+                        & 2  & 23.91 & 46.80 \\
+                        & 3  & 22.19 & 46.80 \\
+                        & 4  & 20.66 & 46.80 \\
+                        & 5  & 18.37 & 46.80 \\
+                        & 6  & 20.19 & 46.80 \\
+                        & 7  & 19.34 & 46.80 \\
+                        & 8  & 18.62 & 46.80 \\
+                        & 9  & 18.33 & 46.80 \\
+                        & 10 & 19.35 & 46.80 \\
+                        & 11 & 18.98 & 46.80 \\
+                        & 12 & \textbf{18.29} & 46.80 \\
+                    \hline
+                    \multirow{6}{*}{\texttt{mpi4py}} 
+                        & 1 & 35.22 & 47.40 \\
+                        & 2 & 13.28 & 47.24 \\
+                        & 3 & 7.57  & 49.58 \\
+                        & 4 & 6.35  & 48.20 \\
+                        & 5 & 9.28  & 42.60 \\
+                        & 6 & \textbf{5.93} & 49.78 \\
+                    \hline
+                \end{tabular}
+                \caption{Runtime and Accuracy of k-means clustering using different implementations and number of processes.}
+                \label{tab:runtime_accuracy_kmeans}
+            \end{table}
+
+            \begin{enumerate}[label=(\alph*)]
+                \item The results show that increasing the number of processes in the multiprocessing implementation generally reduces 
+                runtime compared to using a single process, although the benefit is not linear. With one process, multiprocessing is slower 
+                than the sequential version due to process management overhead. However, as more processes are added, performance improves, 
+                and the runtime drops steadily, reaching its best value at 12 processes. After around 5–6 processes, the gains become smaller,
+                and runtimes fluctuate slightly, reflecting overhead and diminishing returns. This indicates that multiprocessing can provide 
+                speedups, but its efficiency is limited by overhead and the shared-memory model.
+
+                \item The MPI implementation demonstrates far stronger scaling behavior than multiprocessing. 
+                Runtime decreases sharply as the number of processes increases, falling from over 35 seconds with one process to under 
+                6 seconds with six processes. This shows that MPI is highly effective at distributing the workload across processes. 
+                However, the results also reveal a non-linear trend like at five processes, the runtime increases compared to four, 
+                likely due to communication overhead or load imbalance. Overall, the results highlight that MPI achieves significant 
+                performance gains with more processes, but its efficiency can vary depending on how evenly the work and communication 
+                costs are distributed.
+
+                \item Changing the number of processes does not significantly affect the accuracy of k-Means clustering. 
+                In the multiprocessing implementation, accuracy remains constant at 46.80\% regardless of process count, showing that parallelism 
+                only impacts runtime. In the MPI implementation, accuracy fluctuates slightly between 42–50\%, but these differences are due to 
+                the non-deterministic order of reductions, not the number of processes itself. We tried to use the same seed number for all runs 
+                to somehow control the random initialization of centroids. Therefore, we conclude that the number of processes 
+                influences execution time but has no significant impact on the clustering accuracy of the algorithm.
+            \end{enumerate}
+
         \end{solution}
 
     \end{parts}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  22 SEP 2025 14:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.23)  29 SEP 2025 16:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -629,15 +629,34 @@ Overfull \hbox (16.29118pt too wide) in paragraph at lines 102--103
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 135.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 135.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 135.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+Overfull \hbox (0.94658pt too wide) in paragraph at lines 135--165
+ [][] 
+ []
 
-[2]
-Overfull \hbox (0.14153pt too wide) in paragraph at lines 163--164
+
+
+[2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+
+[3]
+Overfull \hbox (0.14153pt too wide) in paragraph at lines 228--229
 []\OT1/cmr/m/n/12 for the par-al-lel im-ple-men-ta-tion of non-lin-ear re-gres-sion pro-gram us-ing Python
  []
 
 
 
-[3]
+[4]
 This exam contains 2 questions with 7 parts, 0 subparts, and 0 subsubparts.
 (./COP_6526_Homework_2_Solution_Arman_Sayan.aux)
  ***********
@@ -646,18 +665,18 @@ L3 programming layer <2024-12-25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 18929 strings out of 473207
- 357458 string characters out of 5716282
- 764678 words of memory out of 5000000
- 41878 multiletter control sequences out of 15000+600000
- 560346 words of font info for 41 fonts, out of 8000000 for 9000
+ 19008 strings out of 473207
+ 358825 string characters out of 5716282
+ 776699 words of memory out of 5000000
+ 41929 multiletter control sequences out of 15000+600000
+ 565521 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,10n,107p,547b,394s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on COP_6526_Homework_2_Solution_Arman_Sayan.pdf (3 pages, 50928 bytes).
+ 102i,11n,107p,547b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb>
+Output written on COP_6526_Homework_2_Solution_Arman_Sayan.pdf (4 pages, 66811 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 46 PDF objects out of 1000 (max. 8388607)
+ 29 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
