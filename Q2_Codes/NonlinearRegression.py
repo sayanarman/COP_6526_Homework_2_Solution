@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
 
 # Preprocessing Input data
 data = pd.read_csv('20K_Datapoints.csv')
@@ -19,7 +20,9 @@ epochs = 10000  # The number of iterations to perform gradient descent
 
 n = float(len(X)) # Number of elements in X
 
-# Performing Gradient Descent 
+# Performing Gradient Descent
+print("\nStarting sequential Nonlinear Regression...")
+start_time = time.time()
 for i in range(epochs): 
     Y_pred = a*X*X + b*X + c  # The current predicted value of Y
     D_a = (-2/n) * sum(X*X * (Y - Y_pred))  # Derivative wrt a
@@ -28,6 +31,9 @@ for i in range(epochs):
     a = a - L * D_a  # Update a
     b = b - L * D_b  # Update b
     c = c - L * D_c  # Update c
+
+end_time = time.time()
+print(f"Nonlinear Regression training completed in {end_time - start_time:.2f} seconds.")
 
 print (a, b, c)
 
