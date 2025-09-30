@@ -243,10 +243,73 @@
 
         \end{solution}
 
+        \pagebreak
+
         \part[10] Please compare the entire runtime of the three different implementations 
         (sequential, multiprocessing, MPI) in a report.
 
         \begin{solution}
+
+            The runtime comparison of the three different implementations of the nonlinear regression program is summarized in Table
+            \ref{tab:runtime_nonlinear_regression}. The experiments were conducted on a local machine with 6 physical CPU cores. 
+            Since multiprocessing does use logical CPU cores, which is 12 in this case, we tested up to 12 processes for the 
+            multiprocessing implementation.
+            Runtime only includes the time taken for training the model, excluding data loading and preprocessing.
+
+            \begin{table}[H]
+                \centering
+                \begin{tabular}{|c|c|c|c|}
+                    \hline
+                    \textbf{Method} & \textbf{\# Processes} & \multicolumn{2}{c|}{\textbf{Runtime (s) ↓}} \\
+                    \cline{3-4}
+                                    &                       & Debug & No Debug \\
+                    \hline
+                    \multirow{1}{*}{\texttt{sequential}} 
+                        & 1  & \textbf{-} & \textbf{46.13} \\
+                    \hline
+                    \multirow{12}{*}{\texttt{multiprocessing}}
+                        & 1  & \textbf{12.22} & 11.04 \\
+                        & 2  & 13.03 & 11.25 \\
+                        & 3  & 12.89 & \textbf{10.96} \\
+                        & 4  & 14.31 & 12.08 \\
+                        & 5  & 15.64 & 13.24 \\
+                        & 6  & 17.34 & 14.87 \\
+                        & 7  & 19.95 & 18.94 \\
+                        & 8  & 21.37 & 20.02 \\
+                        & 9  & 24.20 & 21.23 \\
+                        & 10 & 26.51 & 21.75 \\
+                        & 11 & 28.50 & 22.56 \\
+                        & 12 & 31.82 & 23.73 \\
+                    \hline
+                    \multirow{6}{*}{\texttt{mpi4py}} 
+                        & 1 & 2.12 & 1.31 \\
+                        & 2 & 1.71 & 0.91 \\
+                        & 3 & \textbf{1.62}  & 0.77  \\
+                        & 4 & 1.76  & 0.74  \\
+                        & 5 & 2.16  & \textbf{0.64}  \\
+                        & 6 & 2.34  & 0.65 \\
+                    \hline
+                \end{tabular}
+                \caption{Runtime (with and without debug statements) of nonlinear regression using different implementations and number of processes.}
+                \label{tab:runtime_nonlinear_regression}
+            \end{table}
+
+            The runtime results clearly highlight the trade-offs between the three implementations. 
+            
+            The sequential implementation serves as a baseline, completing in roughly 46 seconds, but it is unable to exploit modern multi-core systems. 
+            
+            The multiprocessing version achieves a moderate speedup at small core counts like up to about 3 processes, but quickly suffers from diminishing returns
+            as the number of processes increases. This is largely due to Python’s multiprocessing overhead, 
+            which outweigh the benefits of additional parallelism for a dataset of this size. 
+            
+            In contrast, the MPI implementation demonstrates superior scalability and efficiency. 
+            Even at a small number of processes, MPI outperforms both sequential and multiprocessing, due to its highly optimized collective 
+            operations and lower communication overhead. Interesting enough, MPI runtimes remain stable across process counts, with best performance observed around 4–6 processes. 
+            
+            Debug logging introduces measurable overhead in all methods, particularly in multiprocessing, where log output from many processes significantly slows execution. 
+            
+            Overall, these results show that while multiprocessing can provide modest gains over sequential execution, 
+            MPI is the best solution for efficient parallel training for our dataset and nonlinear regression program.
 
         \end{solution}
 
