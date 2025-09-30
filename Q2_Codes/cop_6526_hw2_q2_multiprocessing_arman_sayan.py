@@ -12,8 +12,8 @@
 # pip install matplotlib (if not already installed)
 # pip install time (if not already installed)
 # pip install multiprocessing (if not already installed)
-# python3 cop_6526_hw2_q2_multiprocessing_arman_sayan.py --debug (to see detailed logs of each process)
-# python3 cop_6526_hw2_q2_multiprocessing_arman_sayan.py (to run normally without debug logs)
+# python3 cop_6526_hw2_q2_multiprocessing_arman_sayan.py --debug -n <num_processes>  (to see detailed logs of each process) (<num_processes> should be <= number of CPU cores)
+# python3 cop_6526_hw2_q2_multiprocessing_arman_sayan.py -n <num_processes> (to run normally without debug logs) (<num_processes> should be <= number of CPU cores)
 
 # Question 2.1 : Parallelized Implementation of Nonlinear Regression using Python Multiprocessing
 
@@ -60,7 +60,7 @@ def ComputeGradients(X_chunk, Y_chunk, grad_queue, param_queue, log_level):
         grad_queue.put((grad_a_total, grad_b_total, grad_c_total, len(X_chunk)))
 
 
-def ParallelNonlinearRegression(X, Y, L=0.0001, epochs=10000):
+def ParallelNonlinearRegression(X, Y, num_processes, L=0.0001, epochs=10000):
     """
     Perform parallel nonlinear regression using multiprocessing.
     """
@@ -68,7 +68,6 @@ def ParallelNonlinearRegression(X, Y, L=0.0001, epochs=10000):
     a, b, c = 0.0, 0.0, 0.0
 
     # Split data into chunks for each process
-    num_processes = cpu_count()
     print(f"Using {num_processes} processes for parallel computation.")
     X_chunks = np.array_split(X, num_processes)
     Y_chunks = np.array_split(Y, num_processes)
@@ -137,7 +136,16 @@ def ParallelNonlinearRegression(X, Y, L=0.0001, epochs=10000):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument(
+        "-n", "--num-processes",
+        type=int,
+        default= cpu_count(),
+        help="Number of processes to run (default: cpu_count())"
+    )
     args = parser.parse_args()
+
+    num_processes = args.num_processes
+    print(f"Using {num_processes} processes for parallel computation.")
 
     # Set logging level only for *your* logger
     if args.debug:
@@ -157,7 +165,7 @@ if __name__ == "__main__":
     epochs = 10000  # The number of iterations to perform gradient descent
 
     # Build and train the model in parallel
-    a, b, c = ParallelNonlinearRegression(X, Y, L, epochs)
+    a, b, c = ParallelNonlinearRegression(X, Y, num_processes, L, epochs)
     print(f'Final Parameters: a: {a}, b: {b}, c: {c}')
 
     # Make predictions with the trained model
